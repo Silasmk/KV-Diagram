@@ -7,13 +7,35 @@ root.geometry("800x600")
 label = Label(root, text="Hello World!")
 label.pack()
 
-size = 4
-kv_matrix = np.zeros((size,size))
+kv_frame = Frame(root)
+kv_frame.pack()
 
-for i in kv_matrix:
-    print(i)
-    row = Label(root, text=i)
-    row.pack()
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+dim = IntVar()
+dim.set(3)
+
+def draw_Matrix(matrix):
+    clear_frame(kv_frame)
+    for i in matrix:
+        row = Label(kv_frame, text=i)
+        row.pack()
+
+kv_matrix = np.zeros((dim.get(),dim.get()))
+
+
+
+def update_Matrix(event):
+    print("Update: " + str(dim.get()))
+    kv_matrix = np.zeros((dim.get(),dim.get()))
+    draw_Matrix(kv_matrix)
+
+scale = Scale(root, from_=1, to=7, orient=HORIZONTAL, variable=dim)
+scale.set(3)
+scale.pack()
+scale.bind('<Motion>', update_Matrix)
 
 
 root.mainloop()
