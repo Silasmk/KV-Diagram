@@ -16,6 +16,7 @@ def clear_frame(frame):
 
 dim = IntVar()
 dim.set(3)
+pdim = 2
 
 def draw_Matrix(matrix):
     clear_frame(kv_frame)
@@ -28,9 +29,13 @@ kv_matrix = np.zeros((dim.get(),dim.get()))
 
 
 def update_Matrix(event):
+    global pdim
     print("Update: " + str(dim.get()))
     kv_matrix = np.zeros((dim.get(),dim.get()))
-    draw_Matrix(kv_matrix)
+    if pdim != dim.get():
+        draw_Matrix(kv_matrix)
+        root.update()
+        pdim = dim.get()
 
 scale = Scale(root, from_=1, to=7, orient=HORIZONTAL, variable=dim)
 scale.set(3)
