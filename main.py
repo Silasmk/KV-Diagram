@@ -7,7 +7,8 @@ root.geometry("800x600")
 label = Label(root, text="Hello World!")
 label.pack()
 
-kv_frame = Frame(root)
+kv_frame = Frame(root, width=200, height=200)
+kv_frame.pack_propagate(False)
 kv_frame.pack()
 
 def clear_frame(frame):
@@ -37,10 +38,9 @@ def update_Matrix(event):
         root.update()
         pdim = dim.get()
 
-scale = Scale(root, from_=1, to=7, orient=HORIZONTAL, variable=dim)
+scale = Scale(root, from_=1, to=7, orient=HORIZONTAL, variable=dim, command=update_Matrix)
 scale.set(3)
 scale.pack()
-scale.bind('<Motion>', update_Matrix)
 
 
 root.mainloop()
