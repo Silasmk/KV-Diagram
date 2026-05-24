@@ -1,5 +1,6 @@
 from tkinter import *
 import numpy as np
+import random
 
 #Root Node
 root = Tk()
@@ -10,27 +11,31 @@ dim = IntVar()
 dim.set(1)
 pdim = 0
 
+kv_matrix = [0,0]
+
 #Functions
-def clear_frame(frame):
-    for widget in frame.winfo_children():
-        widget.destroy()
-
 def draw_Matrix(matrix):
-    clear_frame(kv_frame)
+    for widget in kv_frame.winfo_children():
+        widget.destroy()
     for i in matrix:
-        row = Label(kv_frame, text=i)
+        temp = ""
+        for j in i:
+            match j:
+                case 0:
+                    temp = temp + " □"
+                case 1:
+                    temp = temp + " ■"
+        row = Label(kv_frame, text=temp)
         row.pack()
-
-kv_matrix = np.zeros((dim.get(),dim.get()))
 
 def create_Matrix(size):
     global kv_matrix
     if size%2 == 0:
         temp_dim = 2 ** (int(size/2))
-        kv_matrix = np.zeros((temp_dim,temp_dim))
+        kv_matrix = np.random.choice([0, 1], size=(temp_dim,temp_dim), p=[0.5, 0.5])
     else:
         temp_dim = 2 ** (int(size/2))
-        kv_matrix = np.zeros((temp_dim,temp_dim*2))
+        kv_matrix = np.random.choice([0, 1], size=(temp_dim,temp_dim*2), p=[0.5, 0.5])
 
 def update_Matrix(event):
     global pdim
@@ -54,5 +59,5 @@ scale.pack()
 
 
 
-draw_Matrix(kv_matrix)
+update_Matrix(kv_matrix)
 root.mainloop()
