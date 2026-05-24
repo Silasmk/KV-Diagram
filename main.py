@@ -31,9 +31,9 @@ kv_matrix = np.zeros((dim.get(),dim.get()))
 
 def update_Matrix(event):
     global pdim
-    print("Update: " + str(dim.get()))
-    kv_matrix = np.zeros((dim.get(),dim.get()))
+    global kv_matrix
     if pdim != dim.get():
+        kv_matrix = np.zeros((dim.get(),dim.get()))
         draw_Matrix(kv_matrix)
         root.update()
         pdim = dim.get()
@@ -43,4 +43,5 @@ scale.set(3)
 scale.pack()
 
 
+draw_Matrix(kv_matrix)
 root.mainloop()
